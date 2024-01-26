@@ -24,20 +24,29 @@ class AnnonceType extends AbstractType
             ->add('couchage')
             ->add('image', EntityType::class, [
                 'class' => Image::class,
-'choice_label' => 'id',
+                'choice_label' => 'id',
             ])
-            ->add('user', EntityType::class, [
-                'class' => User::class,
-'choice_label' => 'id',
-            ])
+            // ->add('user', EntityType::class, [
+            //     'class' => User::class,
+            //     'choice_label' => 'id',
+            // ])
             ->add('equipements', EntityType::class, [
                 'class' => Equipement::class,
-'choice_label' => 'id',
-'multiple' => true,
+                'choice_label' => 'id',
+                'multiple' => true,
+            ])
+              //champ pour récupérer les équipements
+            ->add('equipements', EntityType::class, [
+            'label' => 'equipement: ',
+            'class' => Equipement::class,
+            'choice_label' => 'label',
+            'attr' => ['class' => 'form-control mb-3 form-check form-switch'],
+            'multiple' => true,
+            'expanded' => true
             ])
             ->add('typeBien', EntityType::class, [
                 'class' => TypeDeBien::class,
-'choice_label' => 'id',
+                'choice_label' => 'id',
             ])
         ;
     }

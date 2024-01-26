@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
-
+use App\Repository\AnnonceRepository;
 use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,10 +37,14 @@ class HomeController extends AbstractController
         return $this->render("home/espaceUser.html.twig");
     }
 
-    #[Route("/mesBiens", name: "mes biens", methods:['GET'])]
-    public function mesBiens()
+    #[Route("/mesBiens/{id}", name: "mes biens", methods:['GET'])]
+    public function mesBiens(int $id, AnnonceRepository $annonceRepository)
     {
-        return $this->render("home/mesBiens.html.twig");
+        $annonces = $annonceRepository->findMesBiens($id);
+        dd($id);
+        return $this->render("home/mesBiens.html.twig", [
+            "annonces"=>$annonces
+        ]);
     }
 
 

@@ -92,6 +92,7 @@ class AppFixtures extends Fixture
         foreach ($array as $key => $catequip){
             $equipement = new Equipement();
             $equipement->setLabel($catequip["label"]);
+            $equipement->setImagepath('toto');
             $equipement->setCategorieEquipement($this->getReference('equipementcat-'. $catequip['equipementCat']));
             $manager->persist($equipement);
             $this->addReference('equipement-'. $key+1, $equipement);

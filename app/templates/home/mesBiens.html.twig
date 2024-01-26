@@ -1,8 +1,28 @@
 {% extends "base.html.twig" %}
 {% block body %}
-{# {% if annonce.id < 0 %} #}
-        <h1>Vous n'avez pas de biens renseignés</h1>
-        <button><a href="/annonce/new"> + </button></a>
-{# {% endif %} #}
-
+{% if annonces|length > 0  %}
+{% for annonce in annonces %}
+        <h1 class="text-center">Vos biens</h1>        
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="..." alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">{{annonce.address}}</h5>
+                    <p class="card-text">{{annonce.price}}€</p>
+                    <p class="card-text">Nombre de couchage: {{annonce.couchage}}</p>
+                    <p class="card-text">{{annonce.description}}</p>
+                    <a href="/annonce/edit/{{annonce.id}}" class="btn btn-back text mt-5">Modifier</a>
+                </div>
+        </div>
+        <div>
+        <button class="btn btn-back text mt-5 "><a href="/annonce/new"> Ajouter un bien </button></a></br>
+        <button  class="btn btn-back text mt-2 "><a href="/espaceUser">Retour à mon espace</br></a></button>
+        </div>
+{% endfor %}
+{% else %}
+        <h1 class="text-center">Vous n'avez pas de biens renseignés</h1>
+{% endif %}
+    <div class="d-flex justify-content-center">
+        <button class="btn btn-back text me-2 "><a href="/annonce/new"> Ajouter un bien </button></a>
+        <button  class="btn btn-back text me-2 "><a href="/espaceUser">Retour à mon espace</br></a></button> 
+    </div>
 {% endblock %}

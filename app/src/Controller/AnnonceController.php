@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Annonce;
 use App\Form\AnnonceType;
 use App\Repository\AnnonceRepository;
+use App\Repository\EquipementRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,7 +25,7 @@ class AnnonceController extends AbstractController
     }
 
     #[Route('/new', name: 'app_annonce_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager ): Response
     {
         $annonce = new Annonce();
         $form = $this->createForm(AnnonceType::class, $annonce);
@@ -33,7 +35,7 @@ class AnnonceController extends AbstractController
             $entityManager->persist($annonce);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_annonce_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('accueil', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('annonce/new.html.twig', [
@@ -50,7 +52,7 @@ class AnnonceController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_annonce_edit', methods: ['GET', 'POST'])]
+    #[Route('/edit/{id}', name: 'app_annonce_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Annonce $annonce, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(AnnonceType::class, $annonce);

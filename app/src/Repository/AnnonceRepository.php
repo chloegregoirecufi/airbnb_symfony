@@ -21,6 +21,34 @@ class AnnonceRepository extends ServiceEntityRepository
         parent::__construct($registry, Annonce::class);
     }
 
+    public function findMesBiens(int $id)
+    {
+         //appel de l'entity manager
+         $entityManager = $this->getEntityManager();
+        //on crée la query
+         $query = $entityManager->createQuery(
+             'SELECT 
+                a.id,
+                a.address,
+                a.price,
+                a.size,
+                a.couchage, 
+                a.description,
+                i.imagepath,
+                u.firstname,
+                u.lastname,
+                t.label
+
+             FROM App\Entity\Annonce a
+             JOIN a.image i
+             JOIN a.user u
+             JOIN a.typeBien t
+             WHERE a.user =:id')->setParameter('id', $id);
+
+             return $query->getResult();
+    }
+
+
 //    /**
 //     * @return Annonce[] Returns an array of Annonce objects
 //     */
