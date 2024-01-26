@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}New User{% endblock %}
+
+{% block body %}
+<section class="vh-100 gradient-custom">
+  <img class="z-0 position-absolute " src="/image/fond.jpg" alt="fond d'ecran">
+  <div class="z-1 position-absolute container h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card bg-dark text-white" style="border-radius: 1rem;">
+          <div class="card-body p-5 text-center">
+                <h2 class="fw-bold mb-2 text-uppercase "><img class="logo_airbnb" src="/logo/airbnb.png" alt="logo airbnb"></h2>
+               {{ include('user/_form.html.twig') }}
+                <p class="mb-0">Vous avez déjà un compte ? <a href="/connecting" class="text-white-50 fw-bold">Connectez-vous</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+    
+
+    <a href="{{ path('app_user_index') }}">back to list</a>
+{% endblock %}

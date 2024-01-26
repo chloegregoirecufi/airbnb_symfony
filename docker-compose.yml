@@ -20,11 +20,11 @@ services:
       - airbnbbase
 
   #container nginx
-  booknginx:
-    container_name: nginxbook
+  airbnbnginx:
+    container_name: nginxairbnb
     image: nginx:stable-alpine
     ports:
-      - '80:80'
+      - '8080:80'
       - '443:443'
     environment:
       TZ: UTC
@@ -55,7 +55,7 @@ services:
 
   #container NODEJS
   airbnbnode: 
-    container_name: nodebook
+    container_name: nodeairbnb
     build: 
       context: ./node
     volumes:

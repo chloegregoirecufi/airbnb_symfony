@@ -1,0 +1,58 @@
+a{
+    text-decoration: none !important;
+}
+
+.logo_airbnb{
+    height: 100px;
+    width: 120px;
+}
+
+.spaceco{
+    margin-bottom: 20px;
+}
+
+.logo{
+    height: 45px;
+    width: 45px;
+}
+
+.choose-logo{
+    align-items: center;
+}
+
+.case-choose{
+    background-color: rgb(255, 90, 95);
+    border-radius: 20px;
+    height: 70px;
+    width: 500px;
+    padding: 10px;
+    margin: 20px;
+}
+
+
+
+
+/* Style dans vu user */
+.btn-back{
+    background-color: rgb(255, 90, 95) ;
+}
+
+
+.text{
+    border: 1px solid rgb(255, 90, 95) !important;
+}
+
+.text>a{
+    color: rgb(72, 72, 72);
+
+}
+
+.text:hover, .text:hover>a{
+    color: white !important;
+    background-color: rgb(255, 90, 95) !important;
+}
+
+.brand{
+    height: 200px;
+    width: 220px;
+}
