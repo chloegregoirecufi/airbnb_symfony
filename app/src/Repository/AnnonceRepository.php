@@ -23,8 +23,8 @@ class AnnonceRepository extends ServiceEntityRepository
 
     public function findMesBiens(int $id)
     {
-         //appel de l'entity manager
-         $entityManager = $this->getEntityManager();
+        //appel de l'entity manager
+        $entityManager = $this->getEntityManager();
         //on crée la query
          $query = $entityManager->createQuery(
              'SELECT 
@@ -35,6 +35,7 @@ class AnnonceRepository extends ServiceEntityRepository
                 a.couchage, 
                 a.description,
                 i.imagepath,
+                u.id,
                 u.firstname,
                 u.lastname,
                 t.label
@@ -43,9 +44,12 @@ class AnnonceRepository extends ServiceEntityRepository
              JOIN a.image i
              JOIN a.user u
              JOIN a.typeBien t
-             WHERE a.user =:id')->setParameter('id', $id);
+             WHERE a.user =:id')
+             ->setParameter('id', $id);
 
-             return $query->getResult();
+             $result = $query->getResult();
+
+             return ($result);
     }
 
 

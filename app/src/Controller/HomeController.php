@@ -41,7 +41,6 @@ class HomeController extends AbstractController
     public function mesBiens(int $id, AnnonceRepository $annonceRepository)
     {
         $annonces = $annonceRepository->findMesBiens($id);
-        dd($id);
         return $this->render("home/mesBiens.html.twig", [
             "annonces"=>$annonces
         ]);

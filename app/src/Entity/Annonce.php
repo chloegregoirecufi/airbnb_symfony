@@ -31,9 +31,6 @@ class Annonce
     #[ORM\Column]
     private ?int $couchage = null;
 
-    #[ORM\ManyToOne(inversedBy: 'annonce')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Image $image = null;
 
 
     #[ORM\ManyToOne(inversedBy: 'annonces')]
@@ -45,9 +42,13 @@ class Annonce
     #[ORM\ManyToOne(inversedBy: 'annonces')]
     private ?TypeDeBien $typeBien = null;
 
+    #[ORM\OneToMany(mappedBy: 'annonce', targetEntity: Image::class, orphanRemoval: true)]
+    private Collection $image;
+
     public function __construct()
     {
         $this->equipements = new ArrayCollection();
+        $this->image = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -115,18 +116,6 @@ class Annonce
         return $this;
     }
 
-    public function getImage(): ?Image
-    {
-        return $this->image;
-    }
-
-    public function setImage(?Image $image): static
-    {
-        $this->image = $image;
-
-        return $this;
-    }
-
 
 
     public function getUser(): ?User
@@ -173,6 +162,36 @@ class Annonce
     public function setTypeBien(?TypeDeBien $typeBien): static
     {
         $this->typeBien = $typeBien;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Image>
+     */
+    public function getImage(): Collection
+    {
+        return $this->image;
+    }
+
+    public function addImage(Image $image): static
+    {
+        if (!$this->image->contains($image)) {
+            $this->image->add($image);
+            $image->setAnnonce($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Image $image): static
+    {
+        if ($this->image->removeElement($image)) {
+            // set the owning side to null (unless already changed)
+            if ($image->getAnnonce() === $this) {
+                $image->setAnnonce(null);
+            }
+        }
 
         return $this;
     }

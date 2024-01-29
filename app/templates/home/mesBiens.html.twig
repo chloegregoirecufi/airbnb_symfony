@@ -3,19 +3,17 @@
 {% if annonces|length > 0  %}
 {% for annonce in annonces %}
         <h1 class="text-center">Vos biens</h1>        
-        <div class="card" style="width: 18rem;">
-            <img class="card-img-top" src="..." alt="Card image cap">
+        <div class="card m-5" style="width: 18rem;">
+            <img class="card-img-top" src="{{ annonce.imagepath }}" alt="Card image cap">
                 <div class="card-body">
                     <h5 class="card-title">{{annonce.address}}</h5>
                     <p class="card-text">{{annonce.price}}€</p>
                     <p class="card-text">Nombre de couchage: {{annonce.couchage}}</p>
                     <p class="card-text">{{annonce.description}}</p>
                     <a href="/annonce/edit/{{annonce.id}}" class="btn btn-back text mt-5">Modifier</a>
+                    <a href="/annonce/delete/{{annonce.id}}" class="btn btn-back text mt-5">Supprimé</a>
+
                 </div>
-        </div>
-        <div>
-        <button class="btn btn-back text mt-5 "><a href="/annonce/new"> Ajouter un bien </button></a></br>
-        <button  class="btn btn-back text mt-2 "><a href="/espaceUser">Retour à mon espace</br></a></button>
         </div>
 {% endfor %}
 {% else %}

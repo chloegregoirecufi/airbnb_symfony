@@ -18,12 +18,13 @@ class Image
     #[ORM\Column(length: 255)]
     private ?string $imagepath = null;
 
-    #[ORM\OneToMany(mappedBy: 'image', targetEntity: annonce::class)]
-    private Collection $annonce;
+    #[ORM\ManyToOne(inversedBy: 'image')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Annonce $annonce = null;
+
 
     public function __construct()
     {
-        $this->annonce = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -43,33 +44,16 @@ class Image
         return $this;
     }
 
-    /**
-     * @return Collection<int, annonce>
-     */
-    public function getAnnonce(): Collection
+    public function getAnnonce(): ?Annonce
     {
         return $this->annonce;
     }
 
-    public function addAnnonce(annonce $annonce): static
+    public function setAnnonce(?Annonce $annonce): static
     {
-        if (!$this->annonce->contains($annonce)) {
-            $this->annonce->add($annonce);
-            $annonce->setImage($this);
-        }
+        $this->annonce = $annonce;
 
         return $this;
     }
 
-    public function removeAnnonce(annonce $annonce): static
-    {
-        if ($this->annonce->removeElement($annonce)) {
-            // set the owning side to null (unless already changed)
-            if ($annonce->getImage() === $this) {
-                $annonce->setImage(null);
-            }
-        }
-
-        return $this;
-    }
 }
