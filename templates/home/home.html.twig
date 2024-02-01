@@ -1,0 +1,54 @@
+{% extends "base.html.twig" %}
+{% block body %}
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/"><img class="logo_airbnb"src="logo/airbnb.png" alt="logo airbnb"></a>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active text-center" aria-current="page">Logements</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Reservation</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Mes coups de coeur</a>
+        </li>
+      </ul>
+    </div>
+      {% if not is_granted('ROLE_USER') %}
+      <button><a href="/connecting">me connecter</button></a>
+      <a href="/connecting"><img src="logo/user.jpg" alt="user"></a>
+      {%  elseif is_granted('ROLE_USER') %}
+      <button><a href="/logout">me déconnecter</button></a>
+      <a href="/espaceUser"><img src="logo/user.jpg" alt="user"></a>
+      {% endif %}
+
+  </div>
+</nav>
+
+<div class="d-flex justify-content-center " >
+    <div class="case-choose d-flex justify-content-around">
+      <img class="logo"src="logo/house.png" alt="logo house">
+      <img class="logo"src="logo/appartement.jpg" alt="logo appartment">
+      <img class="logo"src="logo/cabanes.jpg" alt="logo cabanes">
+      <img class="logo"src="logo/avecvu.jpg" alt="logo avecvu">
+      <img class="logo"src="logo/lieuinsolite.jpg" alt="logo lieu insolite">
+    </div>
+</div>
+{% for annonce in annonces %}
+        <div class="card m-5" style="width: 18rem;">
+            <img class="card-img-top" src="/image/maison/{{ annonce.imagePath }}" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">{{annonce.address}}</h5>
+                    <p class="card-text">{{annonce.price}}€ / nuit</p>
+                    <p class="card-text">Nombre de couchage: {{annonce.couchage}}</p>
+                    <p class="card-text">{{short_description(annonce.description)}}</p>
+                    <a href="/annonce/detail/{{annonce.id}}" class="btn btn-back text mt-5">Voir plus</a>
+                </div>
+        </div>
+
+{% endfor %}
+
+
+{% endblock %}
