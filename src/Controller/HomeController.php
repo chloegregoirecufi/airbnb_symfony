@@ -21,7 +21,7 @@ class HomeController extends AbstractController
     public function home(AnnonceRepository $annonceRepository)
     {  
         return $this->render("home/home.html.twig",[
-            'annonces' => $annonceRepository->findAll(),
+             'annonces' => $annonceRepository->findAll(),
 
         ]); 
     }
@@ -36,9 +36,9 @@ class HomeController extends AbstractController
     #[Route("/mesBiens/{id}", name: "mes_biens", methods:['GET'])]
     public function mesBiens(int $id, AnnonceRepository $annonceRepository)
     {
-        $annonces = $annonceRepository->findMesBiens($id);
+         $annonces = $annonceRepository->findMesBiens($id);
         return $this->render("home/mesBiens.html.twig", [
-            "annonces"=> $annonces,
+             "annonces"=> $annonces,
         ]);
     }
 

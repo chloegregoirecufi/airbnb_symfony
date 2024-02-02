@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Reservation{% endblock %}
+
+{% block body %}
+    <h1>Create new Reservation</h1>
+
+    {{ include('reservation/_form.html.twig') }}
+
+    <a class="btn btn-back text m-2" href="/">Retour</a>
+{% endblock %}

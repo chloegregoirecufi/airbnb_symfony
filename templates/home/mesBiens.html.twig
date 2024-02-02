@@ -1,7 +1,8 @@
 {% extends "base.html.twig" %}
 {% block body %}
 {% if annonces|length > 0  %}
-        <h1 class="text-center">Vos biens</h1>        
+        <h1 class="text-center">Vos biens</h1> 
+<div class="d-flex flex-row">      
 {% for annonce in annonces %}
         <div class="card m-5" style="width: 18rem;">
             <img class="card-img-top" src="/image/maison/{{ annonce.imagePath }}" alt="Card image cap">
@@ -16,6 +17,7 @@
                 </div>
         </div>
 {% endfor %}
+</div> 
 {% else %}
         <h1 class="text-center">Vous n'avez pas de biens renseignés</h1>
 {% endif %}

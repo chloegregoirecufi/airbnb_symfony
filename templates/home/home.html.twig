@@ -36,6 +36,7 @@
       <img class="logo"src="logo/lieuinsolite.jpg" alt="logo lieu insolite">
     </div>
 </div>
+<div class="d-flex flex-row"> 
 {% for annonce in annonces %}
         <div class="card m-5" style="width: 18rem;">
             <img class="card-img-top" src="/image/maison/{{ annonce.imagePath }}" alt="Card image cap">
@@ -49,6 +50,7 @@
         </div>
 
 {% endfor %}
+</div>
 
 
 {% endblock %}

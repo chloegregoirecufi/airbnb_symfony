@@ -16,6 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class AnnonceType extends AbstractType
 {
+    //méthode qui créer le formulaire
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -40,15 +41,12 @@ class AnnonceType extends AbstractType
                 ])
             ]
             ])
-            // ->add('user', EntityType::class, [
-            //     'class' => User::class,
+
+            // ->add('equipements', EntityType::class, [
+            //     'class' => Equipement::class,
             //     'choice_label' => 'id',
+            //     'multiple' => true,
             // ])
-            ->add('equipements', EntityType::class, [
-                'class' => Equipement::class,
-                'choice_label' => 'id',
-                'multiple' => true,
-            ])
               //champ pour récupérer les équipements
             ->add('equipements', EntityType::class, [
             'label' => 'equipement: ',
@@ -59,8 +57,9 @@ class AnnonceType extends AbstractType
             'expanded' => true
             ])
             ->add('typeBien', EntityType::class, [
+                'label' => 'Type de bien',
                 'class' => TypeDeBien::class,
-                'choice_label' => 'id',
+                'choice_label' => 'label',
             ])
         ;
     }

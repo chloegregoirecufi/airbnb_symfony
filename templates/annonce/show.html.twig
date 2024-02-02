@@ -26,16 +26,20 @@
                 <td>{{ annonce.description }}</td>
             </tr>
             <tr>
+                <th>Equipements</th>
+                <td>{% for equipement in annonce.getEquipements()%}
+                    {{ equipement.label}},
+                {% endfor %}</td> 
+            </tr>
+
+            <tr>
                 <th>Couchage</th>
                 <td>{{ annonce.couchage }}</td>
             </tr>
-            <tr>
-                <th>Reservation</th>
-                {# <td>{{ annonce.reservation.date_debut }}</td>     #}
-            </tr>
         </tbody>
     </table>
+    <p><a href="/reservation/new" class="btn btn-back text m-2">Reservez-moi</a></p>
 
-    <a href="/" class="btn btn-back text mt-5">Retour</a>
+    <a href="/" class="btn btn-back text m-2">Retour</a>
 
 {% endblock %}

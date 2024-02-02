@@ -6,10 +6,12 @@ use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 #[Route('/user')]
@@ -69,8 +71,14 @@ class UserController extends AbstractController
 
     //Route qui permet de modifier les information personnel de user
     #[Route('/edit/{id}', name: 'app_user_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, User $user, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, User $user, EntityManagerInterface $entityManager, Security $security): Response
     {
+            //sécuriser l'id du bien dans url
+            $user_id = $user->getId();
+            if($user_id != $security->getUser()->getId()){
+                throw new AccessDeniedException('Vous n\'êtes pas le bienvenu');
+            } 
+        
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 

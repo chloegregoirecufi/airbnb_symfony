@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 #[Route('/annonce')]
 class AnnonceController extends AbstractController
@@ -91,15 +92,21 @@ class AnnonceController extends AbstractController
     }
 
     #[Route('/edit/{id}', name: 'app_annonce_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Annonce $annonce, EntityManagerInterface $entityManager, User $user): Response
+    public function edit(Request $request, Annonce $annonce, EntityManagerInterface $entityManager, Security $security): Response
     {
+        //sécuriser l'id du bien dans url
+        $annonce_user_id = $annonce->getUser()->getId();
+        if($annonce_user_id != $security->getUser()->getId()){
+            throw new AccessDeniedException('Vous n\'êtes pas le bienvenu');
+        } 
+
         $form = $this->createForm(AnnonceType::class, $annonce);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('mes_biens', ['id'=> $user->getId()], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('mes_biens', ['id'=>  $annonce_user_id], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('annonce/edit.html.twig', [
@@ -108,14 +115,14 @@ class AnnonceController extends AbstractController
         ]);
     }
 
-    #[Route('/delete/{id}', name: 'app_annonce_delete', methods: ['POST'])]
-    public function delete(Request $request, Annonce $annonce, EntityManagerInterface $entityManager): Response
+    #[Route('/delete/{id}', name: 'app_annonce_delete', methods: ['GET','POST'])]
+    public function delete(Request $request, Annonce $annonce, EntityManagerInterface $entityManager, User $user): Response
     {
         if ($this->isCsrfTokenValid('delete'.$annonce->getId(), $request->request->get('_token'))) {
             $entityManager->remove($annonce);
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_annonce_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('mes_biens', ['id'=> $user->getId()], Response::HTTP_SEE_OTHER);
     }
 }

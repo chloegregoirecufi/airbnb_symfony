@@ -35,7 +35,7 @@ class AnnonceRepository extends ServiceEntityRepository
                 a.couchage, 
                 a.description,
                 a.imagePath,
-                u.id,
+                u.id user_id,
                 u.firstname,
                 u.lastname,
                 t.label
@@ -49,6 +49,7 @@ class AnnonceRepository extends ServiceEntityRepository
              $result = $query->getResult();
              return ($result);
     }
+
 
 
 //    /**

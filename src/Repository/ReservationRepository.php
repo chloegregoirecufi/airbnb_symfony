@@ -21,6 +21,34 @@ class ReservationRepository extends ServiceEntityRepository
         parent::__construct($registry, Reservation::class);
     }
 
+    public function findMesReservation(int $id)
+    {
+        //appel de l'entity manager
+        $entityManager = $this->getEntityManager();
+        //on crée la query
+         $query = $entityManager->createQuery(
+             'SELECT 
+                r.id,
+                r.dateDebut,
+                r.dateFin,
+                a.id,
+                u.id user_id,
+                u.firstname,
+                u.lastname,
+                
+
+             FROM App\Entity\Reservation r
+             JOIN r.user u
+             JOIN r.annonce a 
+             WHERE r.user =:id')
+             ->setParameter('id', $id);
+
+             $result = $query->getResult();
+             return ($result);
+    }
+
+
+
 //    /**
 //     * @return Reservation[] Returns an array of Reservation objects
 //     */
